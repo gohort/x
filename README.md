@@ -23,14 +23,6 @@ var (
     ErrReading = x.NewError("reading")
 )
 
-// Errors can be used standalone like a standard error.
-func find(key string) (*Value, error) {
-    if valueNotFound(key) {
-        return nil, ErrNotFound
-    }
-    // ...
-}
-
 // x has a custom Errorf for categorizing errors. This is helpful when
 // developing an API with a backend business logic.
 func getTicket(key string) (*Value, error) {
@@ -51,4 +43,11 @@ func handler(w http.ResponseWriter, _ *http.Request) {
     // ...
 }
 
+// Errors can be used standalone like a standard error.
+func find(key string) (*Value, error) {
+    if valueNotFound(key) {
+        return nil, ErrNotFound
+    }
+    // ...
+}
 ```
