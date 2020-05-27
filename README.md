@@ -13,6 +13,7 @@ package main
 
 import (
     "fmt"
+    "errors"
 
     "github.com/gohort/x"
 )
@@ -22,16 +23,6 @@ var (
     ErrTicketing = x.NewError("ticketing system")
     ErrReading = x.NewError("reading")
 )
-
-// x has a custom Errorf for categorizing errors. This is helpful when
-// developing an API with a backend business logic.
-func getTicket(key string) (*Value, error) {
-    val, err := find(key)
-    if err != nil {
-        return nil, x.Errorf(ErrTicketing, "find: %w", err)
-    }
-    // ...
-}
 
 // errors can be compared using errors.Is and be unwrapped.
 func handler(w http.ResponseWriter, _ *http.Request) {
@@ -47,6 +38,16 @@ func handler(w http.ResponseWriter, _ *http.Request) {
 func find(key string) (*Value, error) {
     if valueNotFound(key) {
         return nil, ErrNotFound
+    }
+    // ...
+}
+
+// x has a custom Errorf for categorizing errors. This is helpful when
+// developing an API with a backend business logic.
+func getTicket(key string) (*Value, error) {
+    val, err := find(key)
+    if err != nil {
+        return nil, x.Errorf(ErrTicketing, "find: %w", err)
     }
     // ...
 }
