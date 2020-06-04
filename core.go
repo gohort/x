@@ -20,3 +20,6 @@ func Errorf(identity y.Identity, format string, args ...interface{}) error {
 
 // Core is an export of the error core.
 type Core = y.Core
+
+// Identity is the exported identity.
+type Identity = y.Identity
